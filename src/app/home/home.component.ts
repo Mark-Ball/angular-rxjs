@@ -20,23 +20,17 @@ export class HomeComponent implements OnInit {
         const http$: Observable<Course[]> = createHttpObservable('/api/courses');
 
         const course$: Observable<Course[]> = http$.pipe(
-            tap(() => console.log('http request executed')),
             map(res => Object.values(res['payload'])),
             shareReplay()
         );
 
-        this.beginnerCourses$ = course$
-            .pipe(
-                map(courses => courses
-                    .filter(course => course.category === 'BEGINNER')
-                )
-            );
+        this.beginnerCourses$ = course$.pipe(
+            map(courses => courses.filter(course => course.category === 'BEGINNER'))
+        )
 
-        this.advancedCourses$ = course$
-            .pipe(
-                map(courses => courses
-                    .filter(course => course.category === 'ADVANCED'))
-            );
+        this.advancedCourses$ = course$.pipe(
+            map(courses => courses.filter(course => course.category === 'ADVANCED'))
+        )
     }
 
 }
