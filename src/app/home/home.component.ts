@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         const http$: Observable<Course[]> = createHttpObservable('/api/courses');
 
-        const course$: Observable<Course[]> = http$.pipe(
+        const course$ = http$.pipe(
             map(res => Object.values(res['payload'])),
             shareReplay()
         );
